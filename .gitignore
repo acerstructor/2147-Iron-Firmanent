@@ -1,0 +1,12 @@
+# Folders:
+.vs/
+library/
+logs/
+obj/
+UserSettings/
+Temp/
+
+# Files:
+2147 Iron Firmanent.sln
+Assembly-CSharp-Editor.csproj
+Assembly-CSharp.csproj
