@@ -1,38 +1,38 @@
 ﻿using UnityEngine;
 
+/// <summary>
+/// A carrier drone. It just carry but doesn't attack.
+/// Hmmm... maybe it carries a supply to another AI outpost
+/// I guess?....
+/// </summary>
 public class CarrierDrone : Drone
 {
+    private float _current;
+
     [SerializeField] private AnimationCurve _curve;
-    [SerializeField] private Vector3 _spawningPos;
-    [SerializeField] private Vector3 _targetPos;
-
-    private float _current, curveHeight;
-
-    public CarrierDrone()
-    {
-    }
+    [SerializeField] protected Vector2 _spawningPos;
+    [SerializeField] protected Vector2 _targetPos;
+    [SerializeField] protected bool _isMovementLocked;
 
     public override void Move()
     {
-        _current = Mathf.MoveTowards(_current, 1f, _moveSpeed * Time.deltaTime);
-        Vector3 currentPos = Vector3.Lerp(_spawningPos, _targetPos, _curve.Evaluate(_current));
-        transform.position = currentPos;
-    }
-
-    public override void Spawn()
-    {
-        
-    }
-
-    public void OnCollisionEnter2D(Collision2D collision)
-    {
-        Debug.Log("Colliding!");
-        if (collision.gameObject.tag == "PlayerBullet")
+        if (_isMovementLocked)
         {
-            //
-            // TODO: Color Effects
-            //
-            _health--;
+            _current = Mathf.MoveTowards(_current, 1f, _moveSpeed * Time.deltaTime);
+            Vector3 currentPos = Vector3.Lerp(_spawningPos, _targetPos, _curve.Evaluate(_current));
+            transform.position = currentPos;
+
+            return;
         }
+
+        transform.Translate(Vector2.down * _moveSpeed * Time.deltaTime);
+    }
+
+    public override void Die()
+    {
+        //
+        // TO DO:
+        //
+        base.Die();
     }
 }

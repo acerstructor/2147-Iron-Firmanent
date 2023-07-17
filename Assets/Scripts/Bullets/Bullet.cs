@@ -1,7 +1,12 @@
 ﻿using UnityEngine;
 
+/// <summary>
+/// This is the parent class of the Bullet which is derived
+/// to both player and enemy class
+/// </summary>
 public abstract class Bullet : MonoBehaviour
 {
+    [SerializeField] protected float _moveSpeed;
     private float _borderLimitX = 4f, _borderLimitY = 6f;
 
     private void Update()
@@ -20,11 +25,5 @@ public abstract class Bullet : MonoBehaviour
         
         if (currentPosition.y > _borderLimitY || currentPosition.y < -_borderLimitY)
             gameObject.SetActive(false);
-
-    }
-
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.tag == "Enemy") gameObject.SetActive(false);
     }
 }

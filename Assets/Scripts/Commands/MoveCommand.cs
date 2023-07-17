@@ -1,5 +1,10 @@
 ﻿using UnityEngine;
 
+
+/// <summary>
+/// The purpose of this class is to control movements of the player
+/// horizontally and vertically
+/// </summary>
 public class MoveCommand : ICommand
 {
 	private Transform _transform;
@@ -19,7 +24,7 @@ public class MoveCommand : ICommand
 	public void Execute()
     {
 		//
-		// TO DO: Sound effects, refactoring, such
+		// TO DO: Sound effects, refactoring, animations 
 		//
 		Vector3 movement = _direction * _speed * Time.deltaTime;
 		Vector3 newPosition = _transform.position + movement;

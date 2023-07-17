@@ -2,8 +2,6 @@
 
 public class PlayerBullet : Bullet
 {
-    [SerializeField] private float _bulletSpeed;
-
     public override void Move()
     {
         //
@@ -11,9 +9,12 @@ public class PlayerBullet : Bullet
         // 
 
         var currentPosition = transform.position;
-        currentPosition.y += _bulletSpeed * Time.deltaTime;
+        currentPosition.y += _moveSpeed * Time.deltaTime;
         transform.position = currentPosition;
     }
 
-
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Enemy") gameObject.SetActive(false);
+    }
 }

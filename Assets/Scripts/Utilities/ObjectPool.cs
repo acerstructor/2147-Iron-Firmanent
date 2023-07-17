@@ -37,32 +37,6 @@ public class ObjectPool : Singleton<ObjectPool>
         }
     }
 
-    public T SpawnFromPool<T>(string tag, Vector2 pos, Quaternion rotation) where T : MonoBehaviour
-    {
-        if (!_poolDictionary.ContainsKey(tag))
-        {
-            Debug.LogWarning($"Pool with tag {tag} doesn't exist.");
-            return null;
-        }
-
-        GameObject objectToSpawn = _poolDictionary[tag].Dequeue();
-        objectToSpawn.SetActive(true);
-        objectToSpawn.transform.position = pos;
-        objectToSpawn.transform.rotation = rotation;
-
-        T component = objectToSpawn.GetComponent<T>();
-
-        if (component == null)
-        {
-            Debug.LogError($"Object with tag {tag} does not have the specified component.");
-            return null;
-        }
-
-        _poolDictionary[tag].Enqueue(objectToSpawn);
-
-        return component;
-    }
-
     public GameObject SpawnFromPool(string tag, Vector2 pos, Quaternion rotation)
     {
         if (!_poolDictionary.ContainsKey(tag))
@@ -72,10 +46,10 @@ public class ObjectPool : Singleton<ObjectPool>
         }
 
         GameObject objectToSpawn = _poolDictionary[tag].Dequeue();
-
-        objectToSpawn.SetActive(true);
+        
         objectToSpawn.transform.position = pos;
         objectToSpawn.transform.rotation = rotation;
+        objectToSpawn.SetActive(true);
 
         _poolDictionary[tag].Enqueue(objectToSpawn);
 

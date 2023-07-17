@@ -1,14 +1,13 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class BulletManager : Singleton<BulletManager>
 {
     public Bullet[] _bullets;
 
-    private void Start()
+    protected override void Awake()
     {
+        base.Awake();
         _bullets = Resources.FindObjectsOfTypeAll<Bullet>();
-        
     }
     private void Update()
     {

@@ -6,8 +6,9 @@ public class EnemyManager : Singleton<EnemyManager>
 
     public Drone[] _drones;
 
-    private void Start()
+    protected override void Awake()
     {
+        base.Awake();
         _drones = Resources.FindObjectsOfTypeAll<Drone>();
     }
 
@@ -15,7 +16,7 @@ public class EnemyManager : Singleton<EnemyManager>
     {
         ManageDrones();
     }
-
+    
     private void ManageDrones()
     {
         foreach (var drone in _drones)
@@ -25,6 +26,10 @@ public class EnemyManager : Singleton<EnemyManager>
             if (drone.GetHealth() <= 0) drone.Die();
             drone.Move();
 
+            if (drone is ShooterDrone shooterDrone)
+            {
+                shooterDrone.Shoot();
+            }
 
             CheckBorder(drone);
         }
@@ -37,9 +42,7 @@ public class EnemyManager : Singleton<EnemyManager>
         if (currentPos.y > _borderLimitY || currentPos.y < -_borderLimitY
             || currentPos.x > _borderLimitX || currentPos.x < -_borderLimitX)
         {
-            drone.gameObject.SetActive(false);
+            drone.Deactivate();
         }
-
     }
-
 }
