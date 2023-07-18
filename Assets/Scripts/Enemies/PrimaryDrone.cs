@@ -2,6 +2,8 @@
 
 public class PrimaryDrone : ShooterDrone
 {
+    private bool _hasReachedDestination = false; // Used to limiting lerp movement;
+
     public override void Shoot()
     {
         if (!_isShooting) return;
@@ -19,9 +21,17 @@ public class PrimaryDrone : ShooterDrone
     public override void Move()
     {
         var distance = Vector2.Distance(transform.position, _targetPos);
-        if (distance > 0) base.Move();
 
+        if (!_hasReachedDestination)
+        {
+            if (distance > 0f)
+            { 
+                base.Move();
+                return;
+            }
+            _hasReachedDestination = true;
+        }
 
-        transform.Translate(Vector3.down * 0.1f * Time.deltaTime);
+        transform.Translate(Vector3.down * 0.2f * Time.deltaTime);
     }
 }

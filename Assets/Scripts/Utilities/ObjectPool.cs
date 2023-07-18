@@ -55,4 +55,22 @@ public class ObjectPool : Singleton<ObjectPool>
 
         return objectToSpawn;
     }
+
+    public GameObject SpawnFromPoolToParent(string tag, Transform parent)
+    {
+        if (!_poolDictionary.ContainsKey(tag))
+        {
+            Debug.LogWarning($"Pool with tag {tag} doesn't exist.");
+            return null;
+        }
+
+        GameObject objectToSpawn = _poolDictionary[tag].Dequeue();
+        objectToSpawn.transform.SetParent(parent);
+
+        objectToSpawn.SetActive(true);
+
+        _poolDictionary[tag].Enqueue(objectToSpawn);
+
+        return objectToSpawn;
+    }
 }

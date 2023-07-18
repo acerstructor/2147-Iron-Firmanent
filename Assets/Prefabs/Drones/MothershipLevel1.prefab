@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 282560595622742679}
   - component: {fileID: 4971762249353649997}
   m_Layer: 0
-  m_Name: Mothership
+  m_Name: MothershipLevel1
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 5892998299327802394}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 2, z: 0}
-  m_LocalScale: {x: 2.3, y: 2.3, z: 0}
+  m_LocalScale: {x: 2.3, y: 2.3, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -99,7 +99,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa00cfe4e85521a4d9ff6b6e80c0fbe2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _health: 20
+  _health: 100
   _moveSpeed: 0.5
   _points: 1000
   _curve:
@@ -127,7 +127,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   _targetPosY: 2
-  _shootCoolDownMax: 4
+  _shootCoolDownMax: 5.5
   _movementCurve:
     serializedVersion: 2
     m_Curve:
@@ -159,7 +159,7 @@ MonoBehaviour:
   - {x: -1, y: 2, z: 0}
   - {x: -0.5, y: 3, z: 0}
   _movementCooldownMax: 4
-  _spiralBulletDurationMax: 3
+  _spiralBulletDurationMax: 2
   _spreadBulletDurationMax: 2
   _bulletHellCoolDownMax: 3
 --- !u!61 &282560595622742679

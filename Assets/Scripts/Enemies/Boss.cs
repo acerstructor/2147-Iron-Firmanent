@@ -11,6 +11,8 @@ public partial class Boss : ShooterDrone
 
     private float _angle = 0f; // for Spiral Bullet Hell
     private float _startAngle = 90f, _endAngle = 270f; // for Spreading Bullet
+
+    // Durations and Cooldowns:
     protected float _bulletHellDuration = 0f;
     protected float _bulletHellCoolDown = 0f;
     protected float _movementCoolDown = 0f;
@@ -214,7 +216,7 @@ public partial class Boss : ShooterDrone
         if (IsInvoking("FireSpiral")) CancelInvoke("FireSpiral");
         if (IsInvoking("FireSpread")) CancelInvoke("FireSpread");
 
-        Deactivate();
+        base.Die();
     }
 
     public override void Deactivate()

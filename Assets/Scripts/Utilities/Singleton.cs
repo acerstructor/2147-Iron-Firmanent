@@ -29,6 +29,7 @@ public abstract class Singleton<T> : MonoBehaviour where T : MonoBehaviour
                     if (_instance == null)
                     {
                         _instance = FindObjectOfType<T>();
+
                         if (_instance == null)
                         {
                             Debug.Log("[Singleton] An instance of " + typeof(T) + " is needed in the scene, but there is none.");

@@ -2,21 +2,24 @@
 
 public class EnemyLockedBullet : EnemyBullet
 {
-    [SerializeField] private GameObject _player;
-
+    [SerializeField] private PlayerPlane _player;
+    
     private Vector2 _playerPos;
 
     private void Awake()
     {
         if (_player == null)
         {
-            _player = GameObject.FindWithTag("Player");
+            _player = FindAnyObjectByType<PlayerPlane>();
         }
     }
 
     private void OnEnable()
     {
-        _playerPos = _player.transform.position;
+        if (_player != null)
+            _playerPos = _player.transform.position;
+        else
+            _playerPos = Vector2.down;
     }
 
     public override void Move()

@@ -57,6 +57,8 @@ public class ShooterDrone : Drone
     {
         // Reset
         _shootCoolDown = 0f;
+
+        // Deactivate this drone
         base.Deactivate();
     }
 }

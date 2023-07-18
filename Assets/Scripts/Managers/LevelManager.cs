@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class SceneManager : SingletonPersistent<SceneManager>
+public class LevelManager : SingletonPersistent<LevelManager>
 {
     [SerializeField] private GameObject _loadingScreen;
  //   [SerializeField] private Slider _loadingSlider;
@@ -35,8 +35,7 @@ public class SceneManager : SingletonPersistent<SceneManager>
         _loadingScreen.SetActive(true);
     //    _loadingSlider.value = 0;
 
-        Show(_duration);
-        yield return new WaitForSeconds(_duration + _duration);
+        yield return Show(_duration);
 
         AsyncOperation operation = UnityEngine.SceneManagement.SceneManager.LoadSceneAsync(sceneId);
 
@@ -49,13 +48,12 @@ public class SceneManager : SingletonPersistent<SceneManager>
             yield return null;
         }
 
-        Hide(_duration);
-        yield return new WaitForSeconds(_duration);
+        yield return Hide(_duration);
 
         _loadingScreen.SetActive(false);
     }
 
-    private void Show(float duration)
+    private IEnumerator Show(float duration)
     {
         LeanTween.value(_loadingScreen, 0, 1, duration).setOnUpdate((float val) =>
         {
@@ -74,9 +72,11 @@ public class SceneManager : SingletonPersistent<SceneManager>
                 child.color = newColor;
             }
         });
+        
+        yield return new WaitForSeconds(duration);
     }
 
-    private void Hide(float duration)
+    private IEnumerator Hide(float duration)
     {
         LeanTween.value(_loadingScreen, 1, 0, duration).setOnUpdate((float val) =>
         {
@@ -95,5 +95,7 @@ public class SceneManager : SingletonPersistent<SceneManager>
                 child.color = newColor;
             }
         });
+
+        yield return new WaitForSeconds(-duration);
     }
 }

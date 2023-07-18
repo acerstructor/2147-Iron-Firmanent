@@ -7,6 +7,7 @@ TagManager:
   - PlayerBullet
   - Enemy
   - EnemyBullet
+  - HUD
   layers:
   - Default
   - TransparentFX
@@ -44,8 +45,11 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: Flying Objects
+  - name: Drone
     uniqueID: 935555713
+    locked: 0
+  - name: Boss
+    uniqueID: 1742936413
     locked: 0
   - name: Bullet
     uniqueID: 4081265201

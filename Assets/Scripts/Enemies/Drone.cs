@@ -16,13 +16,21 @@ public abstract class Drone : MonoBehaviour
     protected bool _isDead;
     protected bool _isMoving;
 
+    public bool IsDead { get { return _isDead; } }
+    public bool IsMoving { get { return _isMoving; } }
+    public int GetPoints { get { return _points; } }
+   
     public abstract void Move();
 
     public virtual void Die()
     {
         _isDead = true;
         _isMoving = false;
-        gameObject.SetActive(false);
+
+        // Player get score
+        GameManager.Instance.PlayerScored();
+        _isDead = false; // Quickly set to false
+        Deactivate();
     }
 
     public virtual void Deactivate()
@@ -31,7 +39,6 @@ public abstract class Drone : MonoBehaviour
     }
 
     public float GetHealth() { return _health; }
-    public int GetPoints() { return _points; }
 
     public void OnCollisionEnter2D(Collision2D collision)
     {

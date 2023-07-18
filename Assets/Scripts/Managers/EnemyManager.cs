@@ -1,15 +1,29 @@
-﻿using UnityEngine;
+﻿using System.Linq;
+using UnityEngine;
 
+
+/// <summary>
+/// The purpose of this manager is to manage all enemy drones
+/// especially the boss drones in order to check the states of
+/// each active drones in the game
+/// </summary>
 public class EnemyManager : Singleton<EnemyManager>
 {
     [SerializeField] private float _borderLimitX, _borderLimitY;
 
-    public Drone[] _drones;
+    private Drone[] _drones;
+
+    public Drone[] GetDrones { get { return _drones; } }
+
+    public Drone[] GetActiveDrones()
+    {
+        return _drones.Where(drone => drone.gameObject.activeInHierarchy).ToArray();
+    }
 
     protected override void Awake()
     {
-        base.Awake();
         _drones = Resources.FindObjectsOfTypeAll<Drone>();
+        base.Awake();
     }
 
     private void Update()
@@ -24,6 +38,7 @@ public class EnemyManager : Singleton<EnemyManager>
             if (!drone.gameObject.activeInHierarchy) continue;
 
             if (drone.GetHealth() <= 0) drone.Die();
+
             drone.Move();
 
             if (drone is ShooterDrone shooterDrone)

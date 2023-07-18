@@ -7,7 +7,7 @@ public class LoadGameplay : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Return))
         {
             // Play Sound Effect
-            SceneManager.Instance.LoadScene(1);
+            LevelManager.Instance.LoadScene(1);
         }
     }
 }

@@ -31,10 +31,24 @@ public class InputHandler : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKey(KeyCode.W)) _moveForward.Execute();
-        if (Input.GetKey(KeyCode.S)) _moveBackward.Execute();
-        if (Input.GetKey(KeyCode.A)) _moveLeft.Execute();
-        if (Input.GetKey(KeyCode.D)) _moveRight.Execute();
-        if (Input.GetKeyDown(KeyCode.Space)) _shoot.Execute();
+        var currentPlayerState = GameManager.Instance.PlayerState;
+        var currentGameState = GameManager.Instance.State;
+
+        if (currentGameState == GameState.GAMEOVER) return;
+
+        switch(currentPlayerState)
+        {
+            // Check if player is alive or recovering
+            case PlayerState.ALIVE:
+            case PlayerState.RECOVERING:
+
+                if (Input.GetKey(KeyCode.W)) _moveForward.Execute();
+                if (Input.GetKey(KeyCode.S)) _moveBackward.Execute();
+                if (Input.GetKey(KeyCode.A)) _moveLeft.Execute();
+                if (Input.GetKey(KeyCode.D)) _moveRight.Execute();
+                if (Input.GetKeyDown(KeyCode.Space)) _shoot.Execute();
+
+                break;
+        }
     }
 }
