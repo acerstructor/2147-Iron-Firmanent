@@ -13,6 +13,17 @@ public class CarrierDrone : Drone
     [SerializeField] protected Vector2 _spawningPos;
     [SerializeField] protected Vector2 _targetPos;
     [SerializeField] protected bool _isMovementLocked;
+    
+    private static readonly int Flying = Animator.StringToHash("Flying");
+
+    private void OnEnable()
+    {
+        _currentHealth = _maxHealth;
+    }
+    protected override int GetState()
+    {
+        return Flying;
+    }
 
     public override void Move()
     {

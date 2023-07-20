@@ -9,7 +9,4 @@ public class ScoreManager : Singleton<ScoreManager>
     {
         base.Awake();
     }
-
-    
-
 }

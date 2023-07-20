@@ -29,8 +29,10 @@ public class Player : MonoBehaviour
         CheckLives();
         CheckRespawn();
 
+        if (_playerPlane.isActiveAndEnabled) _playerPlane.Animate();
+
         _playerPlane.Entrance();
-        _playerPlane.Recovering();
+        _playerPlane.Recover();
         _playerPlane.Die();
     }
 
@@ -45,9 +47,9 @@ public class Player : MonoBehaviour
     }
     private void CheckLives()
     {
-         var currentPlayerState = GameManager.Instance.PlayerState;
+        var currentPlayerState = GameManager.Instance.PlayerState;
 
-        if (currentPlayerState != PlayerState.DEAD) return;
+        if (currentPlayerState != PlayerState.INACTIVE) return;
 
         if (_currentLives <= 0)
         {
@@ -60,7 +62,7 @@ public class Player : MonoBehaviour
     {
         var currentState = GameManager.Instance.PlayerState;
 
-        if (currentState != PlayerState.DEAD) return;
+        if (currentState != PlayerState.INACTIVE) return;
 
         if (_respawnTime > 0)
         {
@@ -75,7 +77,7 @@ public class Player : MonoBehaviour
 
     private void PlayerOnStateChange(PlayerState playerState)
     {
-        if (playerState == PlayerState.DEAD)
+        if (playerState == PlayerState.INACTIVE)
         {
             _respawnTime = _respawnTimeMax;
             LoseLive();

@@ -3,5 +3,6 @@
     RECOVERING,
     ALIVE,
     DEAD,
-    ENTERING
+    ENTERING,
+    INACTIVE
 }

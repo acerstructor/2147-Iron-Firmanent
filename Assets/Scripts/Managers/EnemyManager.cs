@@ -9,7 +9,7 @@ using UnityEngine;
 /// </summary>
 public class EnemyManager : Singleton<EnemyManager>
 {
-    [SerializeField] private float _borderLimitX, _borderLimitY;
+    [SerializeField] private float _borderLimitX, _borderLimitAbove, _borderLimitBelow;
 
     private Drone[] _drones;
 
@@ -37,6 +37,8 @@ public class EnemyManager : Singleton<EnemyManager>
         {
             if (!drone.gameObject.activeInHierarchy) continue;
 
+            drone.Animate();
+
             if (drone.GetHealth() <= 0) drone.Die();
 
             drone.Move();
@@ -54,7 +56,7 @@ public class EnemyManager : Singleton<EnemyManager>
     {
         var currentPos = drone.transform.position;
 
-        if (currentPos.y > _borderLimitY || currentPos.y < -_borderLimitY
+        if (currentPos.y > _borderLimitAbove || currentPos.y < _borderLimitBelow
             || currentPos.x > _borderLimitX || currentPos.x < -_borderLimitX)
         {
             drone.Deactivate();

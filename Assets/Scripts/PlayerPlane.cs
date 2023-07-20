@@ -8,16 +8,25 @@ public class PlayerPlane : MonoBehaviour
     [SerializeField] private AnimationCurve _curve;
     [SerializeField] private float _entranceMoveSpeed;
     [SerializeField] private float _maxRecovery;
+    [SerializeField] private Animator _animator;
 
     private float _current = 0f;
     private float _currentRecovery = 0f;
 
+    private int _currentState;
+
+    private bool _recovering;
+
+    private static readonly int Alive = Animator.StringToHash("Alive");
+    private static readonly int Recovering = Animator.StringToHash("Recovering");
+
     private void OnEnable()
     {
         transform.position = _startingPos;
+        _recovering = false;
     }
 
-    public void Recovering()
+    public void Recover()
     {
         var playerState = GameManager.Instance.PlayerState;
 
@@ -26,15 +35,31 @@ public class PlayerPlane : MonoBehaviour
         if (_currentRecovery > 0)
         {
             _currentRecovery -= Time.deltaTime;
+            _recovering = true;
         }
         else
         {
             GameManager.Instance.SetPlayerState(PlayerState.ALIVE);
+            _recovering = false;
         }
+    }
 
-        //
-        // TO DO: SPRITE EFFECT
-        //
+    public void Animate() // I forgot to create IAnimated interface so screw it! >:(
+    {
+        var state = GetState();
+
+        if (state == _currentState) return;
+
+        _animator.CrossFade(state, 0, 0);
+        _currentState = state;
+
+    }
+
+    protected int GetState()
+    {
+        // Priorities
+        if (_recovering) return Recovering;
+        return Alive;
     }
 
     public void Entrance()
@@ -66,17 +91,15 @@ public class PlayerPlane : MonoBehaviour
 
         if (currentState != PlayerState.DEAD) return;
 
-        //
-        // TO DO: DYING ANIMATION
-        //
-       
+        ObjectPool.Instance.SpawnFromPool("Explosion", transform.position, Quaternion.identity);
+
+        GameManager.Instance.SetPlayerState(PlayerState.INACTIVE);
+
         Deactivate();
     }
 
     public void Deactivate()
     {
-
-
         gameObject.SetActive(false);
     }
 

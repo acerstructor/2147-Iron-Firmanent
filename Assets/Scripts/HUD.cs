@@ -37,6 +37,6 @@ public partial class HUD : MonoBehaviour
 
     private void UpdateText()
     {
-        _scoreText.text = _player.GetScore.ToString();
+        _scoreText.text = _player.GetScore.ToString().PadLeft(12, '0');
     }
 }

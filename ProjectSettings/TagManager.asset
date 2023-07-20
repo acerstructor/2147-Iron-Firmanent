@@ -54,3 +54,6 @@ TagManager:
   - name: Bullet
     uniqueID: 4081265201
     locked: 0
+  - name: Explosion
+    uniqueID: 3332090059
+    locked: 0

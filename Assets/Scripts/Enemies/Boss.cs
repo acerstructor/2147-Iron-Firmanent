@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 public partial class Boss : ShooterDrone
 {
@@ -8,6 +9,8 @@ public partial class Boss : ShooterDrone
     [SerializeField] protected float _spiralBulletDurationMax;
     [SerializeField] protected float _spreadBulletDurationMax;
     [SerializeField] protected float _bulletHellCoolDownMax;
+    [SerializeField] protected SpriteRenderer _spriteRenderer;
+    [SerializeField] protected int _dyingDurationMax;
 
     private float _angle = 0f; // for Spiral Bullet Hell
     private float _startAngle = 90f, _endAngle = 270f; // for Spreading Bullet
@@ -18,11 +21,16 @@ public partial class Boss : ShooterDrone
     protected float _movementCoolDown = 0f;
     protected bool _isMovementCoolDown = false;
     protected bool _isBulletHellCoolDown = false;
+    protected bool _isDying = false;
     protected BossMovePosition _movePos;
 
     private void OnEnable()
     {
+        GameManager.Instance.SetLevelState(LevelState.BOSSBATTLE);
+
+        _currentHealth = _maxHealth;
         _isMoving = true;
+        _isDying = false;
         _movePos = BossMovePosition.ENTRANCE;
         _currentPos = transform.position;
         _targetPos = new Vector3(_currentPos.x, _targetPosY, 0);
@@ -41,7 +49,7 @@ public partial class Boss : ShooterDrone
         {
             // Activate shooting before moving to next position
             if (_movePos == BossMovePosition.ENTRANCE)
-                _isShooting = true;
+                _shootingEnabled = true;
 
             _movePos = nextPos;
             _currentPos = transform.position;
@@ -57,7 +65,7 @@ public partial class Boss : ShooterDrone
 
     public override void Shoot()
     {
-        if (!_isShooting) return;
+        if (!_shootingEnabled) return;
         if (_movePos == BossMovePosition.ENTRANCE) return;
         
         CheckBulletDuration("FireSpiral");
@@ -211,12 +219,17 @@ public partial class Boss : ShooterDrone
 
     public override void Die()
     {
-        _isShooting = false;
+        if (_isDying) return;
+        _isDying = true;
+
+        GameManager.Instance.SetLevelState(LevelState.BOSSWIN);
+
+        _shootingEnabled = false;
         _isMoving = false;
         if (IsInvoking("FireSpiral")) CancelInvoke("FireSpiral");
         if (IsInvoking("FireSpread")) CancelInvoke("FireSpread");
 
-        base.Die();
+        StartCoroutine(Exploding());
     }
 
     public override void Deactivate()
@@ -232,4 +245,23 @@ public partial class Boss : ShooterDrone
 
         base.Deactivate();
     }
+
+    private IEnumerator Exploding()
+    {
+        int i = 0;
+        while (i < _dyingDurationMax)
+        {
+            float posX = Random.Range(_spriteRenderer.bounds.min.x, _spriteRenderer.bounds.max.x);
+            float posY = Random.Range(_spriteRenderer.bounds.min.y, _spriteRenderer.bounds.max.y);
+            Vector2 pos = new Vector2(posX, posY);
+            ObjectPool.Instance.SpawnFromPool("Explosion", pos, Quaternion.identity);
+            i++;
+            yield return new WaitForSeconds(0.5f);
+        }
+
+        Deactivate();
+        yield return null;
+    }
+
+
 }

@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 7669875758329173784}
   - component: {fileID: 282560595622742679}
   - component: {fileID: 4971762249353649997}
+  - component: {fileID: -6364714306253074585}
   m_Layer: 0
   m_Name: MothershipLevel1
   m_TagString: Enemy
@@ -99,9 +100,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa00cfe4e85521a4d9ff6b6e80c0fbe2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _health: 100
+  _maxHealth: 100
   _moveSpeed: 0.5
   _points: 1000
+  _animator: {fileID: -6364714306253074585}
   _curve:
     serializedVersion: 2
     m_Curve:
@@ -128,6 +130,9 @@ MonoBehaviour:
     m_RotationOrder: 4
   _targetPosY: 2
   _shootCoolDownMax: 5.5
+  _shootingDuration: 3
+  _sprintBreakDuration: 0.25
+  _slowSpeed: 0.1
   _movementCurve:
     serializedVersion: 2
     m_Curve:
@@ -162,6 +167,8 @@ MonoBehaviour:
   _spiralBulletDurationMax: 2
   _spreadBulletDurationMax: 2
   _bulletHellCoolDownMax: 3
+  _spriteRenderer: {fileID: 5892998299327802389}
+  _dyingDurationMax: 10
 --- !u!61 &282560595622742679
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -209,3 +216,24 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 7
+--- !u!95 &-6364714306253074585
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5892998299327802394}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 51bbb5fce6508464c86b6ccbd83e76eb, type: 2}
+  m_CullingMode: 2
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

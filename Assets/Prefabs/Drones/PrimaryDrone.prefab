@@ -13,13 +13,14 @@ GameObject:
   - component: {fileID: 6134977638424209717}
   - component: {fileID: 4159412105851520555}
   - component: {fileID: 2991633555389440294}
+  - component: {fileID: 2215308840765349053}
   m_Layer: 0
   m_Name: PrimaryDrone
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &603000650388761099
 Transform:
   m_ObjectHideFlags: 0
@@ -125,9 +126,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6eaca10ab7839c14aaacf7f4511552dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _health: 3
+  _maxHealth: 5
   _moveSpeed: 1
   _points: 150
+  _animator: {fileID: 2215308840765349053}
   _curve:
     serializedVersion: 2
     m_Curve:
@@ -154,6 +156,9 @@ MonoBehaviour:
     m_RotationOrder: 4
   _targetPosY: 1
   _shootCoolDownMax: 6
+  _shootingDuration: 0.1
+  _sprintBreakDuration: 0.25
+  _slowSpeed: 0.2
 --- !u!50 &2991633555389440294
 Rigidbody2D:
   serializedVersion: 4
@@ -175,3 +180,24 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 7
+--- !u!95 &2215308840765349053
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2594871042111430553}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 22100000, guid: 62d0657fd135ab04da9bddd58ef0f926, type: 2}
+  m_CullingMode: 2
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
