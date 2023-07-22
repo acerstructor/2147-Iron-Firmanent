@@ -22,13 +22,19 @@ public partial class Boss : ShooterDrone
     protected bool _isMovementCoolDown = false;
     protected bool _isBulletHellCoolDown = false;
     protected bool _isDying = false;
+    protected bool _bulletHell = false;
     protected BossMovePosition _movePos;
+
+    private static readonly int Flying = Animator.StringToHash("Flying");
+    private static readonly int Dying = Animator.StringToHash("Dying");
+    private static readonly int BulletHell = Animator.StringToHash("BulletHell");
 
     private void OnEnable()
     {
         GameManager.Instance.SetLevelState(LevelState.BOSSBATTLE);
 
         _currentHealth = _maxHealth;
+        _bulletHell = false;
         _isMoving = true;
         _isDying = false;
         _movePos = BossMovePosition.ENTRANCE;
@@ -61,6 +67,14 @@ public partial class Boss : ShooterDrone
                 _isMovementCoolDown = true;
             }
         }
+    }
+
+    protected override int GetState()
+    {
+        // Priorities
+        if (_isDying) return Dying;
+        if (_bulletHell) return BulletHell;
+        return Flying;
     }
 
     public override void Shoot()
@@ -109,6 +123,7 @@ public partial class Boss : ShooterDrone
         if (_bulletHellDuration > 0)
         {
             _bulletHellDuration -= Time.deltaTime;
+            _bulletHell = true;
             return;
         }
 
@@ -117,6 +132,7 @@ public partial class Boss : ShooterDrone
             _bulletHellCoolDown = _bulletHellCoolDownMax;
             _isBulletHellCoolDown = true;
             CancelInvoke(name);
+            _bulletHell = false;
         }
     }
 
@@ -243,6 +259,8 @@ public partial class Boss : ShooterDrone
         _bulletHellDuration = 0f;
         _angle = 0f;
 
+        _isDead = true;
+        GameManager.Instance.PlayerScored();
         base.Deactivate();
     }
 

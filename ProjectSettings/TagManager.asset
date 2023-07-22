@@ -48,6 +48,9 @@ TagManager:
   - name: Drone
     uniqueID: 935555713
     locked: 0
+  - name: Soldier Drones
+    uniqueID: 2538251091
+    locked: 0
   - name: Boss
     uniqueID: 1742936413
     locked: 0

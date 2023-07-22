@@ -51,6 +51,7 @@ public abstract class Drone : MonoBehaviour
 
     public virtual void Deactivate()
     {
+        _isDead = false; // making sure every inherited game object change _isDead state to false
         gameObject.SetActive(false);
     }
 

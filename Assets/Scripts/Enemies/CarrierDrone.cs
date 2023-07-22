@@ -32,11 +32,11 @@ public class CarrierDrone : Drone
             _current = Mathf.MoveTowards(_current, 1f, _moveSpeed * Time.deltaTime);
             Vector3 currentPos = Vector3.Lerp(_spawningPos, _targetPos, _curve.Evaluate(_current));
             transform.position = currentPos;
-
-            return;
         }
-
-        transform.Translate(Vector2.down * _moveSpeed * Time.deltaTime);
+        else
+        {
+            transform.Translate(Vector2.down * _moveSpeed * Time.deltaTime);
+        }
     }
 
     public override void Die()

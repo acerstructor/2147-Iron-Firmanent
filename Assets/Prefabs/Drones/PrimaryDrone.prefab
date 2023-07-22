@@ -9,18 +9,18 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 603000650388761099}
+  - component: {fileID: 2215308840765349053}
   - component: {fileID: 4565444548033557701}
   - component: {fileID: 6134977638424209717}
   - component: {fileID: 4159412105851520555}
   - component: {fileID: 2991633555389440294}
-  - component: {fileID: 2215308840765349053}
   m_Layer: 0
   m_Name: PrimaryDrone
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &603000650388761099
 Transform:
   m_ObjectHideFlags: 0
@@ -30,12 +30,33 @@ Transform:
   m_GameObject: {fileID: 2594871042111430553}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.3, y: 0.3, z: 1}
+  m_LocalScale: {x: 0.55, y: 0.55, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &2215308840765349053
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2594871042111430553}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 22100000, guid: 62d0657fd135ab04da9bddd58ef0f926, type: 2}
+  m_CullingMode: 2
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!212 &4565444548033557701
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -74,11 +95,11 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 935555713
-  m_SortingLayer: 1
+  m_SortingLayerID: -1756716205
+  m_SortingLayer: 2
   m_SortingOrder: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 0.8490566, g: 0.30060676, b: 0.123353474, a: 1}
+  m_Sprite: {fileID: 2015166176, guid: d535a359ccc3b424ab10e6341e5813a4, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -105,7 +126,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
+    oldSize: {x: 1.96875, y: 2.5}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -156,9 +177,9 @@ MonoBehaviour:
     m_RotationOrder: 4
   _targetPosY: 1
   _shootCoolDownMax: 6
-  _shootingDuration: 0.1
-  _sprintBreakDuration: 0.25
-  _slowSpeed: 0.2
+  _shootingDuration: 0.3
+  _sprintBreakDuration: 0.1
+  _slowSpeed: 0.35
 --- !u!50 &2991633555389440294
 Rigidbody2D:
   serializedVersion: 4
@@ -180,24 +201,3 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 7
---- !u!95 &2215308840765349053
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2594871042111430553}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 22100000, guid: 62d0657fd135ab04da9bddd58ef0f926, type: 2}
-  m_CullingMode: 2
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0

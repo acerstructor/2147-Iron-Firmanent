@@ -6,6 +6,8 @@ AnimatorOverrideController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: CarrierDroneVariant2
+  m_Name: CarrierDroneSmallAnim
   m_Controller: {fileID: 9100000, guid: f4eb12d705f5a814e9963b48d2f18639, type: 2}
-  m_Clips: []
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: e5315ab64912f784cb2d2e9cbd5476a4, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 1b361b83efd581745936b4a410bcb447, type: 2}

@@ -5,12 +5,29 @@ public class Player : MonoBehaviour
     [SerializeField] private int _maxLives;
     [SerializeField] private PlayerPlane _playerPlane;
     [SerializeField] private float _respawnTimeMax;
+    [SerializeField] private int _score;
+    [SerializeField] private float _firingDurationMax;
 
     private float _respawnTime;
-    [SerializeField] private int _score;
     private int _currentLives;
 
+    private float _firingDuration = 0;
+
     public int GetScore { get { return _score; } }
+    public bool IsFiring
+    {
+        get
+        {
+            if (_firingDuration <= 0) return false;
+            return true;
+        }
+        set
+        {
+            if (!value) return;
+
+            _firingDuration = _firingDurationMax;
+        }
+    }
 
     private void OnEnable()
     {
@@ -22,10 +39,12 @@ public class Player : MonoBehaviour
     {
         _currentLives = _maxLives;
     }
+
     private void Update()
     {
         if (IsGameOver()) return;
 
+        CheckFireDuration();
         CheckLives();
         CheckRespawn();
 
@@ -34,6 +53,14 @@ public class Player : MonoBehaviour
         _playerPlane.Entrance();
         _playerPlane.Recover();
         _playerPlane.Die();
+    }
+
+    private void CheckFireDuration()
+    {
+        if (_firingDuration > 0)
+        {
+            _firingDuration -= Time.deltaTime;
+        }
     }
 
     private bool IsGameOver()

@@ -11,8 +11,8 @@ public class WaveManager : Singleton<WaveManager>
     {
         InitStates();
 
-        StartCoroutine(ManageWaves());
-        //StartCoroutine(Debug_Wave());
+        //StartCoroutine(ManageWaves());
+        StartCoroutine(Debug_Wave());
     }
 
     private void InitStates()
@@ -28,8 +28,8 @@ public class WaveManager : Singleton<WaveManager>
 
         if (currentGameState == GameState.GAMEOVER)
         {
-            StopCoroutine(ManageWaves());
-            //StopCoroutine(Debug_Wave());
+            //StopCoroutine(ManageWaves());
+            StopCoroutine(Debug_Wave());
         }
     }
 
@@ -43,29 +43,30 @@ public class WaveManager : Singleton<WaveManager>
 
     private IEnumerator LevelOne()
     {
+        var minX = -1.1f;
+        var maxX = 1f;
+
         yield return new WaitForSeconds(2);
 
-        yield return SpawnFormat.Polygon("CarrierDrone", 2, 0.2f, transform.position, -1.5f, 1.5f, 3f);
+        yield return SpawnFormat.Polygon("CarrierDrone", 2, 0.35f, transform.position, minX, maxX, 5f);
 
-        yield return SpawnFormat.Rectangle("CarrierDrone", 0.5f, transform.position, -1.5f, 1.5f, 1.5f);
+        yield return SpawnFormat.Polygon("CarrierDrone", 2, 0.35f, transform.position, minX, maxX, 10f);
 
-        yield return SpawnFormat.Polygon("CarrierDrone", 2, 0.2f, transform.position, -1.5f, 1.5f, 5f);
+        yield return SpawnFormat.Line("PrimaryDrone", 2, 1f, transform.position, minX, maxX, 8f);
 
-        yield return SpawnFormat.Line("PrimaryDrone", 2, 0.5f, transform.position, -1.5f, 1.5f, 4f);
+        yield return SpawnFormat.Line("PrimaryDrone", 2, 1f, transform.position, minX, maxX, 8f);
 
-        yield return SpawnFormat.Line("PrimaryDrone", 2, 0.5f, transform.position, -1.5f, 1.5f, 4f);
+        yield return SpawnFormat.Line("PrimaryDrone", 4, 1f, transform.position, minX, maxX, 4f);
 
-        yield return SpawnFormat.Line("PrimaryDrone", 4, 1f, transform.position, -1.5f, 0f, 1f);
-
-        yield return SpawnFormat.Line("ShooterDrone", 2, 0.6f, transform.position, -1.5f, 1.5f, 1f);
+        yield return SpawnFormat.Line("ShooterDrone", 2, 1.5f, transform.position, minX, maxX, 2f);
 
         yield return SpawnFormat.Repeated("CarrierDroneFromLeftToRight", 5, transform.position, 1, 1f);
 
-        yield return SpawnFormat.Repeated("CarrierDroneFromRightToLeft", 5, transform.position, 1, 5f);
+        yield return SpawnFormat.Repeated("CarrierDroneFromRightToLeft", 5, transform.position, 1, 10f);
 
-        yield return SpawnFormat.Line("PrimaryDrone", 2, 0.5f, transform.position, -1.5f, 1.5f, 2f);
+        yield return SpawnFormat.Line("PrimaryDrone", 2, 1f, transform.position, minX, maxX, 2f);
 
-        yield return SpawnFormat.Line("PrimaryDrone", 2, 0.5f, transform.position, -1.5f, 1.5f, 6f);
+        yield return SpawnFormat.Line("PrimaryDrone", 2, 1f, transform.position, minX, maxX, 6f);
    
         yield return BossBattle("MothershipLevel1");
 
@@ -98,24 +99,12 @@ public class WaveManager : Singleton<WaveManager>
         yield return null;
     }
 
-    private IEnumerator LevelTwo()
-    {
-        yield return new WaitForSeconds(1f);
-    }
-
     /// <summary>
     /// This coroutine function only works on debug scene
     /// to test out the enemy drones and also the format
     /// </summary>
     private IEnumerator Debug_Wave()
     {
-        yield return new WaitForSeconds(2);
-
-        ObjectPool.Instance.SpawnFromPool("ShooterDrone", transform.position, Quaternion.identity);
-
-        yield return new WaitForSeconds(6f);
-
-        ObjectPool.Instance.SpawnFromPool("ShooterDrone", transform.position, Quaternion.identity);
-
+        yield return BossBattle("MothershipLevel1");
     }
 }
