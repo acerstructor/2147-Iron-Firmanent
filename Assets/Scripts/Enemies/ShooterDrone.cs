@@ -114,6 +114,9 @@ public class ShooterDrone : Drone
     {
         _isMoving = false;
         _shootingEnabled = false;
+
+        ObjectPool.Instance.SpawnFromPool("Bubble_200", transform.position, Quaternion.identity);
+
         base.Die();
     }
     public override void Deactivate()

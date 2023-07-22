@@ -34,14 +34,13 @@ public class Bubble : MonoBehaviour
 
     private IEnumerator SparkBubble()
     {
-        var prevScale = _transform;
-        LeanTween.scale(gameObject, _transform, 0.1f);
+        LeanTween.scale(gameObject, new Vector2(0.2f, 0.2f), 0.1f);
 
-        LeanTween.scale(gameObject, new Vector2(_transform.x + _bounceSize, _transform.y + _bounceSize), 0.2f).setEase(_leanTweenType);
+        LeanTween.scale(gameObject, new Vector2(_bounceSize, _bounceSize), 0.2f).setEase(_leanTweenType);
 
         yield return new WaitForSeconds(0.1f);
 
-        LeanTween.scale(gameObject, prevScale, 0.2f).setEase(_leanTweenType);
+        LeanTween.scale(gameObject, new Vector2(0.5f, 0.5f), 0.2f).setEase(_leanTweenType);
     }
 
     private void MoveUp()

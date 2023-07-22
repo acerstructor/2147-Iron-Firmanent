@@ -273,6 +273,7 @@ public partial class Boss : ShooterDrone
             float posY = Random.Range(_spriteRenderer.bounds.min.y, _spriteRenderer.bounds.max.y);
             Vector2 pos = new Vector2(posX, posY);
             ObjectPool.Instance.SpawnFromPool("Explosion", pos, Quaternion.identity);
+            ObjectPool.Instance.SpawnFromPool("Bubble_100", pos, Quaternion.identity);
             i++;
             yield return new WaitForSeconds(0.5f);
         }

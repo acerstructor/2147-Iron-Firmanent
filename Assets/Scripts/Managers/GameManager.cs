@@ -6,8 +6,14 @@ using UnityEngine.SceneManagement;
 /// whether if it's either game on going, game on pause
 /// or rather game over
 /// </summary>
-public class GameManager : Singleton<GameManager>
+public class GameManager : SingletonPersistent<GameManager>
 {
+
+#if !UNITY_EDITOR && UNITY_WEBGL
+    [DllImport("__Internal")]
+    private static extern bool IsMobile();
+#endif
+
     public Action<bool> OnPlayerScoreGain { get; set; }
     public Action<PlayerState> OnPlayerStateChange { get; set; }
     public Action<GameState> OnStateChange { get; set; }
@@ -17,6 +23,7 @@ public class GameManager : Singleton<GameManager>
     public PlayerState PlayerState { get; private set; }
     public LevelState LevelState { get; private set; }
 
+    public bool IsWebGLMobile { get; private set; }
 
     public void PlayerScored()
     {
@@ -43,11 +50,11 @@ public class GameManager : Singleton<GameManager>
     }
     protected override void Awake()
     {
-        Scene currentScene = SceneManager.GetActiveScene();
+        IsWebGLMobile = false;
 
-        string sceneName = currentScene.name;
-
-        IsDebug = (sceneName != "EnemyDebug") ? false :  true; 
+#if !UNITY_EDITOR && UNITY_WEBGL
+        IsWebGLMobile = IsMobile();
+#endif
 
         base.Awake();
     }
@@ -55,5 +62,7 @@ public class GameManager : Singleton<GameManager>
     private void Update()
     {
         FramerateManager.Instance.RequestFullFrameRate();
+
+        
     }
 }

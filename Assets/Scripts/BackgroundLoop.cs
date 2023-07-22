@@ -7,6 +7,6 @@ public class BackgroundLoop : MonoBehaviour
 
     private void Update()
     {
-        _backgroundRenderer.material.mainTextureOffset += new Vector2(_loopSpeed * Time.deltaTime, 0f);
+        _backgroundRenderer.material.mainTextureOffset += new Vector2(0f, _loopSpeed * Time.deltaTime);
     }
 }

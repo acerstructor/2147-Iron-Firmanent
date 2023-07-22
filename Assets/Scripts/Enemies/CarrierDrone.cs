@@ -41,9 +41,7 @@ public class CarrierDrone : Drone
 
     public override void Die()
     {
-        //
-        // TO DO:
-        //
+        ObjectPool.Instance.SpawnFromPool("Bubble_100", transform.position, Quaternion.identity);
         base.Die();
     }
 }

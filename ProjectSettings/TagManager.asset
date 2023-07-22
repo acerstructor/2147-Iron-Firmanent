@@ -54,9 +54,15 @@ TagManager:
   - name: Boss
     uniqueID: 1742936413
     locked: 0
+  - name: Player Bullet
+    uniqueID: 1006441249
+    locked: 0
   - name: Bullet
     uniqueID: 4081265201
     locked: 0
   - name: Explosion
     uniqueID: 3332090059
+    locked: 0
+  - name: Bubble
+    uniqueID: 3651912619
     locked: 0

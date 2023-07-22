@@ -96,6 +96,6 @@ public class LevelManager : SingletonPersistent<LevelManager>
             }
         });
 
-        yield return new WaitForSeconds(-duration);
+        yield return new WaitForSeconds(duration);
     }
 }

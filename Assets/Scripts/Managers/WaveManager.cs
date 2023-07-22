@@ -7,12 +7,17 @@ using UnityEngine;
 /// </summary>
 public class WaveManager : Singleton<WaveManager>
 {
+    protected override void Awake()
+    {
+        base.Awake();
+
+        InitStates();
+    }
+
     public void Start()
     {
-        InitStates();
-
-        //StartCoroutine(ManageWaves());
-        StartCoroutine(Debug_Wave());
+        StartCoroutine(ManageWaves());
+        //StartCoroutine(Debug_Wave());
     }
 
     private void InitStates()
@@ -28,8 +33,8 @@ public class WaveManager : Singleton<WaveManager>
 
         if (currentGameState == GameState.GAMEOVER)
         {
-            //StopCoroutine(ManageWaves());
-            StopCoroutine(Debug_Wave());
+            StopCoroutine(ManageWaves());
+            //StopCoroutine(Debug_Wave());
         }
     }
 
@@ -43,18 +48,22 @@ public class WaveManager : Singleton<WaveManager>
 
     private IEnumerator LevelOne()
     {
-        var minX = -1.1f;
-        var maxX = 1f;
+        var minX = -2f;
+        var maxX = 0f;
 
         yield return new WaitForSeconds(2);
 
         yield return SpawnFormat.Polygon("CarrierDrone", 2, 0.35f, transform.position, minX, maxX, 5f);
 
-        yield return SpawnFormat.Polygon("CarrierDrone", 2, 0.35f, transform.position, minX, maxX, 10f);
+        yield return SpawnFormat.Polygon("CarrierDrone", 2, 0.35f, transform.position, minX, maxX, 2f);
+
+        yield return SpawnFormat.Line("PrimaryDrone", 2, 1f, transform.position, minX, maxX, 2f);
+
+        yield return SpawnFormat.Polygon("CarrierDrone", 2, 0.35f, transform.position, minX, maxX, 3f);
 
         yield return SpawnFormat.Line("PrimaryDrone", 2, 1f, transform.position, minX, maxX, 8f);
 
-        yield return SpawnFormat.Line("PrimaryDrone", 2, 1f, transform.position, minX, maxX, 8f);
+        yield return SpawnFormat.Polygon("CarrierDrone", 2, 0.35f, transform.position, minX, maxX, 3f);
 
         yield return SpawnFormat.Line("PrimaryDrone", 4, 1f, transform.position, minX, maxX, 4f);
 
@@ -62,9 +71,13 @@ public class WaveManager : Singleton<WaveManager>
 
         yield return SpawnFormat.Repeated("CarrierDroneFromLeftToRight", 5, transform.position, 1, 1f);
 
-        yield return SpawnFormat.Repeated("CarrierDroneFromRightToLeft", 5, transform.position, 1, 10f);
+        yield return SpawnFormat.Polygon("CarrierDrone", 2, 0.35f, transform.position, minX, maxX, 3f);
+
+        yield return SpawnFormat.Repeated("CarrierDroneFromRightToLeft", 5, transform.position, 1, 1f);
 
         yield return SpawnFormat.Line("PrimaryDrone", 2, 1f, transform.position, minX, maxX, 2f);
+
+        yield return SpawnFormat.Polygon("CarrierDrone", 2, 0.35f, transform.position, minX, maxX, 3f);
 
         yield return SpawnFormat.Line("PrimaryDrone", 2, 1f, transform.position, minX, maxX, 6f);
    

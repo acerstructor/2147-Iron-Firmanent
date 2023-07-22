@@ -93,7 +93,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4499065533908990899, guid: 66982ffadb0a9f84fbe6fd6572623917, type: 3}
       propertyPath: _maxHealth
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4499065533908990899, guid: 66982ffadb0a9f84fbe6fd6572623917, type: 3}
       propertyPath: _moveSpeed

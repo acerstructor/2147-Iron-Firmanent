@@ -20,7 +20,7 @@ public class ShootCommand : ICommand
 		// TO DO: Sound effects, refactoring, such
 		//
 
-		ObjectPool.Instance.SpawnFromPool("PlayerBullet", _transform.position, Quaternion.identity);
+		ObjectPool.Instance.SpawnFromPool("PlayerBullet", new Vector2(_transform.position.x, _transform.position.y + 0.4f), Quaternion.identity);
 		_player.IsFiring = true;
 	}
 }

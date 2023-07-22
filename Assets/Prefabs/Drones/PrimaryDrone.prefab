@@ -149,7 +149,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _maxHealth: 5
   _moveSpeed: 1
-  _points: 150
+  _points: 200
   _animator: {fileID: 2215308840765349053}
   _curve:
     serializedVersion: 2

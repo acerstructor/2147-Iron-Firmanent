@@ -12,6 +12,11 @@ public partial class HUD : MonoBehaviour
         GameManager.Instance.OnPlayerStateChange += PlayerOnStateChange;
     }
 
+    private void OnDisable()
+    {
+        GameManager.Instance.OnPlayerStateChange -= PlayerOnStateChange;
+    }
+
     private void PlayerOnStateChange(PlayerState playerState)
     {
         if (playerState == PlayerState.DEAD)
