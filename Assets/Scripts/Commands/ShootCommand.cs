@@ -13,12 +13,9 @@ public class ShootCommand : ICommand
 
 	public void Execute()
     {
-
 		if (_player.IsFiring) return;
 
-		//
-		// TO DO: Sound effects, refactoring, such
-		//
+		AudioManager.Instance.PlaySoundEffect("PlayerShoot", SfxType.SHOOT);
 
 		ObjectPool.Instance.SpawnFromPool("PlayerBullet", new Vector2(_transform.position.x, _transform.position.y + 0.4f), Quaternion.identity);
 		_player.IsFiring = true;

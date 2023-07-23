@@ -1,5 +1,7 @@
 using System;
-using UnityEngine.SceneManagement;
+#if !UNITY_EDITOR && UNITY_WEBGL
+using System.Runtime.InteropServices;
+#endif
 
 /// <summary>
 /// This class handles the states of the game
@@ -8,22 +10,15 @@ using UnityEngine.SceneManagement;
 /// </summary>
 public class GameManager : SingletonPersistent<GameManager>
 {
-
-#if !UNITY_EDITOR && UNITY_WEBGL
-    [DllImport("__Internal")]
-    private static extern bool IsMobile();
-#endif
-
     public Action<bool> OnPlayerScoreGain { get; set; }
     public Action<PlayerState> OnPlayerStateChange { get; set; }
     public Action<GameState> OnStateChange { get; set; }
     public Action<LevelState> OnLevelStateChange { get; set; }
     public bool IsDebug { get; private set; }
+    public bool HasNewHighScore { get; set; }
     public GameState State { get; private set; }
     public PlayerState PlayerState { get; private set; }
     public LevelState LevelState { get; private set; }
-
-    public bool IsWebGLMobile { get; private set; }
 
     public void PlayerScored()
     {
@@ -50,19 +45,12 @@ public class GameManager : SingletonPersistent<GameManager>
     }
     protected override void Awake()
     {
-        IsWebGLMobile = false;
-
-#if !UNITY_EDITOR && UNITY_WEBGL
-        IsWebGLMobile = IsMobile();
-#endif
-
+        HasNewHighScore = false;
         base.Awake();
     }
 
     private void Update()
     {
         FramerateManager.Instance.RequestFullFrameRate();
-
-        
     }
 }

@@ -23,9 +23,6 @@ public class MoveCommand : ICommand
 
 	public void Execute()
     {
-		//
-		// TO DO: Sound effects, refactoring, animations 
-		//
 		Vector3 movement = _direction * _speed * Time.deltaTime;
 		Vector3 newPosition = _transform.position + movement;
 

@@ -11,11 +11,6 @@ public class GameplayScene : MonoBehaviour
         _currentDuration = _durationMax;
     }
 
-    private void OnDisable()
-    {
-        GameManager.Instance.SetGameState(GameState.MAINMENU);
-    }
-
     private void Update()
     {
         var currentGameState = GameManager.Instance.State;

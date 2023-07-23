@@ -22,17 +22,15 @@ public class LevelManager : SingletonPersistent<LevelManager>
         _loadingScreenChildren = GetComponentsInChildren<Image>();
         _labelChildren = GetComponentsInChildren<TMP_Text>();
         base.Awake();
-    }
-
-    private void Start()
-    {
         _loadingScreen.SetActive(false);
     }
+
     public void LoadScene(int sceneId) => StartCoroutine(LoadSceneAsync(sceneId));
 
     private IEnumerator LoadSceneAsync(int sceneId)
     {
         _loadingScreen.SetActive(true);
+        IsLoading = true;
     //    _loadingSlider.value = 0;
 
         yield return Show(_duration);
@@ -49,8 +47,8 @@ public class LevelManager : SingletonPersistent<LevelManager>
         }
 
         yield return Hide(_duration);
-
         _loadingScreen.SetActive(false);
+        IsLoading = false;
     }
 
     private IEnumerator Show(float duration)

@@ -62,9 +62,6 @@ public abstract class Drone : MonoBehaviour
         Debug.Log("Colliding!");
         if (collision.gameObject.tag == "PlayerBullet")
         {
-            //
-            // TODO: Color Effects
-            //
             _currentHealth--;
         }
     }

@@ -28,10 +28,10 @@ public class ShooterDrone : Drone
 
     private void OnEnable()
     {
+        _hasReachedDestination = false;
         _currentHealth = _maxHealth;
         _isMoving = true;
         _shootingEnabled = false;
-        _hasReachedDestination = false;
         _sprinting = true;
         _currentPos = transform.position;
         _targetPos = new Vector3(_currentPos.x, _targetPosY, 0f);
@@ -68,6 +68,8 @@ public class ShooterDrone : Drone
             _shootCoolDown -= Time.deltaTime;
             return;
         }
+
+        AudioManager.Instance.PlaySoundEffect("EnemyShoot_0", SfxType.SHOOT);
 
         _shooting = true;
         ObjectPool.Instance.SpawnFromPool("EnemyLockedBullet", transform.position, Quaternion.identity);

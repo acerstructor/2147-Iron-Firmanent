@@ -11,6 +11,7 @@ public partial class Boss : ShooterDrone
     [SerializeField] protected float _bulletHellCoolDownMax;
     [SerializeField] protected SpriteRenderer _spriteRenderer;
     [SerializeField] protected int _dyingDurationMax;
+    [SerializeField] protected float _firingSoundDurationMax;
 
     private float _angle = 0f; // for Spiral Bullet Hell
     private float _startAngle = 90f, _endAngle = 270f; // for Spreading Bullet
@@ -19,6 +20,7 @@ public partial class Boss : ShooterDrone
     protected float _bulletHellDuration = 0f;
     protected float _bulletHellCoolDown = 0f;
     protected float _movementCoolDown = 0f;
+    protected float _firingSoundDuration = 1f;
     protected bool _isMovementCoolDown = false;
     protected bool _isBulletHellCoolDown = false;
     protected bool _isDying = false;
@@ -39,6 +41,7 @@ public partial class Boss : ShooterDrone
         _isDying = false;
         _movePos = BossMovePosition.ENTRANCE;
         _currentPos = transform.position;
+        _firingSoundDuration = 0;
         _targetPos = new Vector3(_currentPos.x, _targetPosY, 0);
     }
 
@@ -90,6 +93,7 @@ public partial class Boss : ShooterDrone
             _shootCoolDown -= Time.deltaTime;
         else
         {
+            AudioManager.Instance.PlaySoundEffect("EnemyShoot_0", SfxType.SHOOT);
             ObjectPool.Instance.SpawnFromPool("EnemyLockedBullet", transform.position, Quaternion.identity);
             _shootCoolDown = _shootCoolDownMax;
         }
@@ -170,6 +174,20 @@ public partial class Boss : ShooterDrone
         _angle += 10f;
 
         if (_angle >= 360f) _angle = 0f; // reset to 0
+
+        BulletHellSound();
+    }
+
+    private void BulletHellSound()
+    {
+        if (_firingSoundDuration > 0)
+        {
+            _firingSoundDuration -= Time.deltaTime;
+            return;
+        }
+
+        AudioManager.Instance.PlaySoundEffect("BulletHellShoot", SfxType.SHOOT);
+        _firingSoundDuration = _firingSoundDurationMax;
     }
 
     protected void FireSpread()
@@ -190,7 +208,9 @@ public partial class Boss : ShooterDrone
             bullet.GetComponent <EnemyBullet>().SetMoveDirection(bulDir);
 
             angle += angleStep;
+            BulletHellSound();
         }
+
     }
 
     public override void Move()

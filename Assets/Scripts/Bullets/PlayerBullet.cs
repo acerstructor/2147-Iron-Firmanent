@@ -4,10 +4,6 @@ public class PlayerBullet : Bullet
 {
     public override void Move()
     {
-        //
-        // TODO: Sound Effects
-        // 
-
         var currentPosition = transform.position;
         currentPosition.y += _moveSpeed * Time.deltaTime;
         transform.position = currentPosition;

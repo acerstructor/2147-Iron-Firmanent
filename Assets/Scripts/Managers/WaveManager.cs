@@ -14,6 +14,21 @@ public class WaveManager : Singleton<WaveManager>
         InitStates();
     }
 
+    private void OnEnable()
+    {
+        GameManager.Instance.OnStateChange += GameOnStateChange;
+    }
+
+    private void GameOnStateChange(GameState state)
+    {
+        if (state == GameState.GAMEOVER)
+        {
+            if (AudioManager.Instance.IsMusicPlaying) AudioManager.Instance.StopMusic();
+
+            AudioManager.Instance.PlaySoundEffect("GameOver", SfxType.GAMESTATE);
+        }
+    }
+
     public void Start()
     {
         StartCoroutine(ManageWaves());
@@ -50,6 +65,9 @@ public class WaveManager : Singleton<WaveManager>
     {
         var minX = -2f;
         var maxX = 0f;
+
+        // Set-up Gameplay Soundtrack
+        AudioManager.Instance.PlayMusic("Gameplay");
 
         yield return new WaitForSeconds(2);
 
@@ -90,6 +108,11 @@ public class WaveManager : Singleton<WaveManager>
     {
         while (EnemyManager.Instance.GetActiveDrones().Length > 0) yield return null;
 
+        if (AudioManager.Instance.IsMusicPlaying) 
+            AudioManager.Instance.StopMusic();
+
+        AudioManager.Instance.PlayMusic("BossBattle");
+
         Vector2 currentSpawnPos = transform.position;
         ObjectPool.Instance.SpawnFromPool(BossName, new Vector2(currentSpawnPos.x, currentSpawnPos.y + 1f) , Quaternion.identity);
 
@@ -102,10 +125,10 @@ public class WaveManager : Singleton<WaveManager>
 
         if (GameManager.Instance.LevelState == LevelState.BOSSWIN)
         {
-            //
-            // TO DO: WINNING SFX, EFFECTS, SUCH
-            // 
-            Debug.Log("Winner!");
+            if (AudioManager.Instance.IsMusicPlaying)
+                AudioManager.Instance.StopMusic();
+
+            AudioManager.Instance.PlaySoundEffect("Victory", SfxType.GAMESTATE);
             yield return new WaitForSeconds(7f);
         }
 
@@ -118,6 +141,10 @@ public class WaveManager : Singleton<WaveManager>
     /// </summary>
     private IEnumerator Debug_Wave()
     {
+        yield return BossBattle("MothershipLevel1");
+
+        yield return BossBattle("MothershipLevel1");
+
         yield return BossBattle("MothershipLevel1");
     }
 }

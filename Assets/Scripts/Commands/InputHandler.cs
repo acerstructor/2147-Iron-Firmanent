@@ -1,4 +1,7 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.Events;
 
 /// <summary>
 /// This class handles all the input which the
@@ -12,6 +15,7 @@ public class InputHandler : MonoBehaviour
     private ICommand _moveRight;
     private ICommand _shoot;
 
+    // KeyPad controllers for phone users:
     [SerializeField] private GameObject _playerPlane;
     [SerializeField] private Player _player;
     [SerializeField] private float _speed;
@@ -42,14 +46,18 @@ public class InputHandler : MonoBehaviour
             // Check if player is alive or recovering
             case PlayerState.ALIVE:
             case PlayerState.RECOVERING:
-
-                if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow)) _moveForward.Execute();
-                if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow)) _moveBackward.Execute();
-                if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow)) _moveLeft.Execute();
-                if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow)) _moveRight.Execute();
-                if (Input.GetKey(KeyCode.Space)) _shoot.Execute();
-
+                CheckKeyUpdate();
                 break;
         }
     }
+
+    private void CheckKeyUpdate()
+    {
+        if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow)) _moveForward.Execute();
+        if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow)) _moveBackward.Execute();
+        if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow)) _moveLeft.Execute();
+        if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow)) _moveRight.Execute();
+        if (Input.GetKey(KeyCode.Space)) _shoot.Execute();
+    }
 }
+

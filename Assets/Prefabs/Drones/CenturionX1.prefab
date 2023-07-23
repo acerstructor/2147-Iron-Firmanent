@@ -190,6 +190,7 @@ MonoBehaviour:
   _bulletHellCoolDownMax: 3
   _spriteRenderer: {fileID: 5892998299327802389}
   _dyingDurationMax: 10
+  _firingSoundDurationMax: 0.1
 --- !u!50 &4971762249353649997
 Rigidbody2D:
   serializedVersion: 4

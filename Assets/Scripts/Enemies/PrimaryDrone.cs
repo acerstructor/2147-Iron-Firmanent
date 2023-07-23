@@ -12,6 +12,8 @@ public class PrimaryDrone : ShooterDrone
             return;
         }
 
+        AudioManager.Instance.PlaySoundEffect("EnemyShoot", SfxType.SHOOT);
+
         _shooting = true;
         ObjectPool.Instance.SpawnFromPool("EnemyPrimaryBullet", transform.position, Quaternion.identity);
         _shootCoolDown = _shootCoolDownMax;

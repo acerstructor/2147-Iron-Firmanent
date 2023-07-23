@@ -100,6 +100,10 @@ PrefabInstance:
       value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 4499065533908990899, guid: 66982ffadb0a9f84fbe6fd6572623917, type: 3}
+      propertyPath: _spawningPos.x
+      value: -2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4499065533908990899, guid: 66982ffadb0a9f84fbe6fd6572623917, type: 3}
       propertyPath: _isMovementLocked
       value: 1
       objectReference: {fileID: 0}

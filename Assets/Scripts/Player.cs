@@ -35,12 +35,6 @@ public class Player : MonoBehaviour
         GameManager.Instance.OnPlayerScoreGain += PlayerOnScoreGain;
     }
 
-    private void OnDisable()
-    {
-        GameManager.Instance.OnPlayerStateChange -= PlayerOnStateChange;
-        GameManager.Instance.OnPlayerScoreGain -= PlayerOnScoreGain;
-    }
-
     private void Awake()
     {
         _currentLives = _maxLives;
