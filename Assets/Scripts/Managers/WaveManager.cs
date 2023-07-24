@@ -79,11 +79,11 @@ public class WaveManager : Singleton<WaveManager>
 
         yield return SpawnFormat.Polygon("CarrierDrone", 2, 0.35f, transform.position, minX, maxX, 3f);
 
-        yield return SpawnFormat.Line("PrimaryDrone", 2, 1f, transform.position, minX, maxX, 8f);
+        yield return SpawnFormat.Line("PrimaryDrone", 2, 1f, transform.position, minX, maxX, 6f);
 
         yield return SpawnFormat.Polygon("CarrierDrone", 2, 0.35f, transform.position, minX, maxX, 3f);
 
-        yield return SpawnFormat.Line("PrimaryDrone", 4, 1f, transform.position, minX, maxX, 4f);
+        yield return SpawnFormat.Line("PrimaryDrone", 4, 1f, transform.position, minX, maxX, 3f);
 
         yield return SpawnFormat.Line("ShooterDrone", 2, 1.5f, transform.position, minX, maxX, 2f);
 
@@ -101,7 +101,7 @@ public class WaveManager : Singleton<WaveManager>
    
         yield return BossBattle("MothershipLevel1");
 
-        yield return LevelOne();
+        yield return LevelTwo();
     }
 
     private IEnumerator BossBattle(string BossName)
@@ -133,6 +133,49 @@ public class WaveManager : Singleton<WaveManager>
         }
 
         yield return null;
+    }
+
+    private IEnumerator LevelTwo()
+    {
+        var minX = -2f;
+        var maxX = 0f;
+
+        // Set-up Gameplay Soundtrack
+        AudioManager.Instance.PlayMusic("Gameplay");
+
+        yield return new WaitForSeconds(2);
+
+        yield return SpawnFormat.Polygon("CarrierDrone", 2, 0.35f, transform.position, minX, maxX, 2f);
+
+        yield return SpawnFormat.Polygon("ShooterDrone", 2, 0.35f, transform.position, minX, maxX, 2f);
+
+        yield return SpawnFormat.Line("PrimaryDrone", 2, 1f, transform.position, minX, maxX, 2f);
+
+        yield return SpawnFormat.Polygon("Primary Drone", 2, 0.35f, transform.position, minX, maxX, 2f);
+
+        yield return SpawnFormat.Line("PrimaryDrone", 2, 1f, transform.position, minX, maxX, 4f);
+
+        yield return SpawnFormat.Polygon("CarrierDrone", 2, 0.35f, transform.position, minX, maxX, 3f);
+
+        yield return SpawnFormat.Line("ShooterDrone", 4, 1f, transform.position, minX, maxX, 3f);
+
+        yield return SpawnFormat.Line("ShooterDrone", 2, 1.5f, transform.position, minX, maxX, 2f);
+
+        yield return SpawnFormat.Repeated("CarrierDroneFromLeftToRight", 5, transform.position, 1, 1f);
+
+        yield return SpawnFormat.Polygon("CarrierDrone", 2, 0.35f, transform.position, minX, maxX, 3f);
+
+        yield return SpawnFormat.Repeated("CarrierDroneFromRightToLeft", 5, transform.position, 1, 1f);
+
+        yield return SpawnFormat.Line("PrimaryDrone", 2, 1f, transform.position, minX, maxX, 2f);
+
+        yield return SpawnFormat.Polygon("ShooterDrone", 2, 0.35f, transform.position, minX, maxX, 3f);
+
+        yield return SpawnFormat.Line("PrimaryDrone", 2, 1f, transform.position, minX, maxX, 6f);
+
+        yield return BossBattle("MothershipLevel1");
+
+        yield return LevelTwo();
     }
 
     /// <summary>

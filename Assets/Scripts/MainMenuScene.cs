@@ -17,7 +17,6 @@ public class MainMenuScene : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0))
         {
-            // Play Sound Effect
             if (isLoading) return;
 
             AudioManager.Instance.PlaySoundEffect("StartGame", SfxType.GAMESTATE);
