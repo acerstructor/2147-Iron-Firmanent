@@ -184,10 +184,6 @@ public class WaveManager : Singleton<WaveManager>
     /// </summary>
     private IEnumerator Debug_Wave()
     {
-        yield return BossBattle("MothershipLevel1");
-
-        yield return BossBattle("MothershipLevel1");
-
-        yield return BossBattle("MothershipLevel1");
+        yield return null;
     }
 }

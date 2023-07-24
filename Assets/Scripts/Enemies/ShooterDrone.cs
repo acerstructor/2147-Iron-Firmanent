@@ -40,6 +40,7 @@ public class ShooterDrone : Drone
     private void OnDisable()
     {
         _hasReachedDestination = false;
+        _current = 0f;
     }
 
     protected override int GetState()
@@ -126,6 +127,7 @@ public class ShooterDrone : Drone
         // Reset
         _shootCoolDown = 0f;
         // Deactivate this drone
+        _hasReachedDestination = false;
         base.Deactivate();
     }
 }
